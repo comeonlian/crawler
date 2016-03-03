@@ -1,0 +1,93 @@
+
+系统工具	   安全杀毒
+
+包名 ——》 主键
+提交者
+软件类型
+所属类别
+
+
+建表语句
+-- 爬取网页 app的信息
+-- 包名 ——》 主键 提交者 软件类型 所属类别
+CREATE TABLE app_info(
+	pkgname VARCHAR(60) COMMENT'包名',
+	submitter VARCHAR(200) COMMENT'提交者',
+	app_type VARCHAR(50) COMMENT'软件类型',
+	app_category VARCHAR(50) COMMENT'软件类别',
+	PRIMARY KEY(pkgname)
+)
+
+
+主地址：  http://www.mumayi.com/android/xitonggongju/
+
+
+
+连接主地址，返回一个document；
+    
+   第一页 - 10个软件信息的列表
+
+   获取第二页的地址；
+http://www.mumayi.com/android/xitonggongju/list_47_2.html
+
+
+
+分析思路：
+1、连接主地址，获取返回的document
+   把‘分类检索’下面的多个分类的 URL地址拿到，拿绝对地址
+   例如：/android/xitonggongju/  ---  系统工具
+
+2、for循环遍历 分类检索 的 所有地址links
+   在for循环的内部，依次对 分类检索 的地址 进行访问；
+   每次访问 分类检索 的地址之后，又会返回一个document
+   从这个document中获取到 ‘分页地址信息’
+
+3、‘分页地址信息’例子 如下： http://www.mumayi.com/android/xitonggongju/list_47_2.html
+   需要单独提取‘末页’的地址信息，转换成页数
+
+4、再次for循环遍历 ‘页数’
+   在for循环的内部，依次对‘页数’的URL进行‘封装拼接’
+   最后在for循环的内部，对已经‘拼接’好的URL进行访问；
+   访问之后又会返回一个document
+
+5、然后在这个返回的document中获取到10个软件的‘访问地址’；
+   for循环依次对这10个地址进行访问，
+   每次访问一个软件的‘地址’，又会返回一个document
+
+6、最后在这个返回的document中拿到需要的信息；
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
